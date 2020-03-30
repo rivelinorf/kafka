@@ -1,6 +1,7 @@
 package com.examle.kafkaexamples;
 
 import com.examle.kafkaexamples.service.KafkaExamplesProducer;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,6 +19,7 @@ public class KafkaExamplesProducerTest {
 
     @Test
     public void test() throws ExecutionException, InterruptedException {
-        producer.producer("hello workd kafka");
+        String value = RandomStringUtils.randomAlphanumeric(20);
+        producer.producer(RandomStringUtils.randomAlphanumeric(20));
     }
 }
