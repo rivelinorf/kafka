@@ -14,18 +14,18 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @NoArgsConstructor
 @Service
-public class KafkaExamplesProducer {
+public class NewOrderProducerService {
 
-    public void producer(String value) throws ExecutionException, InterruptedException {
+    public void producer(String key, String value, String topic) throws ExecutionException, InterruptedException {
         var producer = new KafkaProducer<String, String>(loadProperties());
-        var record = new ProducerRecord<>("NEW_ORDER", value, value);
+        var record = new ProducerRecord<>(topic, key, value);
         producer.send(record, (metadata, exception) -> {
             if (exception != null) {
                 exception.printStackTrace();
                 return;
             }
-            log.info("topic: " + metadata.topic() + "\tmessage: " + metadata.toString());
-        }).get();
+            log.info("topic: " + metadata.topic() + "\tmessage: " + value);
+        });
     }
 
     private Properties loadProperties() {
